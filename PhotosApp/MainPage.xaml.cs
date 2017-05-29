@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,6 +14,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -23,13 +26,13 @@ namespace PhotosApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
-       // public PhotosApp.photoViewModel VM { get; set; }
+        // public PhotosApp.photoViewModel VM { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
             //DataContext = new photoViewModel();
-          //  VM = new PhotosApp.photoViewModel();
-                }
+            //  VM = new PhotosApp.photoViewModel();
+        }
         public void HmburgerMenu()
         {
             mySplit.IsPaneOpen = !mySplit.IsPaneOpen;
@@ -53,26 +56,30 @@ namespace PhotosApp
                 {
                     case 0:
                         {
-                           // MainAppFrame.Navigate(typeof(Home));
+                            // MainAppFrame.Navigate(typeof(Home));
                             break;
                         }
 
                     case 1:
                         {
-                          //  MainAppFrame.Navigate(typeof(PowerSettingsPage));
+                            VM.Camera();
                             break;
                         }
                     case 2:
                         {
-                           // MainAppFrame.Navigate(typeof(FavoritePage));
+                            // MainAppFrame.Navigate(typeof(FavoritePage));
                             break;
                         }
                     case 3:
                         {
+                            Toggle_Click();
+                            break;
+                        }
+                    case 4:
+                        {
                             RunAsyncDialog();
                             break;
                         }
-
                 }
             }
         }
@@ -88,6 +95,50 @@ namespace PhotosApp
             if ((int)res.Id == 0)
             {
                 Application.Current.Exit();
+            }
+
+        }
+        private async void Border_Drop(object sender, DragEventArgs e)
+        {
+            // dataview is snoop in to the file..
+            if (e.DataView.Contains(StandardDataFormats.StorageItems))
+            {
+                var items = await e.DataView.GetStorageItemsAsync();
+                //any file (>0)
+                if (items.Any())
+                {
+                    StorageFile selected = items[0] as StorageFile;
+                    var type = selected.ContentType;
+                    //if image
+                    if (type == "image/jpeg")
+                    {
+                        var imgCopy = await selected.CopyAsync(ApplicationData.Current.LocalFolder, selected.Name, NameCollisionOption.ReplaceExisting);
+                        img.Source = new BitmapImage(new Uri(imgCopy.Path));
+
+                        VM.Images.Add(new photoModel() { Path = new BitmapImage(new Uri(imgCopy.Path)) });
+                        //Images.Add(imgCopy );
+                        //VM.Images.Add(imgCopy.Path);
+                    }
+                }
+            }
+        }
+
+        private void Border_DragOver(object sender, DragEventArgs e)
+        {
+            e.AcceptedOperation = DataPackageOperation.Copy;
+        }
+
+        private void Toggle_Click()
+        {
+            if (this.RequestedTheme.ToString() == ElementTheme.Light.ToString())
+            {
+                this.RequestedTheme = ElementTheme.Dark;
+
+            }
+            else
+            {
+                this.RequestedTheme = ElementTheme.Light;
+
             }
         }
     }
