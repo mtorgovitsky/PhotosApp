@@ -72,7 +72,7 @@ namespace PhotosApp
                         }
                     case 3:
                         {
-                            Toggle_Click();
+                           // Toggle_Click();
                             break;
                         }
                     case 4:
@@ -128,8 +128,11 @@ namespace PhotosApp
             e.AcceptedOperation = DataPackageOperation.Copy;
         }
 
-        private void Toggle_Click()
+       
+
+        private void Toggle_Toggled(object sender, RoutedEventArgs e)
         {
+
             if (this.RequestedTheme.ToString() == ElementTheme.Light.ToString())
             {
                 this.RequestedTheme = ElementTheme.Dark;
