@@ -11,15 +11,15 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace PhotosApp
 {
-    public class FhotoViewModel
+    public class photoViewModel
     {
-        public ObservableCollection<FhotoModel> Images { get; set; } = new ObservableCollection<FhotoModel>();
+        public ObservableCollection<photoModel> Images { get; set; } = new ObservableCollection<photoModel>();
+        
+      
 
-
-
-        void AddFhoto(FhotoModel Img)
+      public  void AddPhoto(string  img)
         {
-            Images.Add(Img);
+           // Images.Add();
         }
     }
     

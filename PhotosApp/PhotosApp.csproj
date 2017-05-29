@@ -95,8 +95,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FhotoViewModel.cs" />
-    <Compile Include="FotoModel.cs" />
+    <Compile Include="PhotoViewModel.cs" />
+    <Compile Include="PhotoModel.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

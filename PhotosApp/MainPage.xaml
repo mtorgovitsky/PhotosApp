@@ -6,8 +6,65 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
+    <Page.Resources>
+        <local:FhotoViewModel x:Name="VM" />
+    </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="0">
+                <Button FontFamily="segoe mdl2 assets" Content="&#xE700;" Name="Hmburger" Click="{x:Bind VM.AddFhoto()}"  Margin="0,3"/>
+            <!--<Button  FontFamily="segoe mdl2 assets" Name="BackBtn"  Content="&#xE26c;"  Click="BackBtn_Click" Margin="3,3"/>
+            <Button Grid.Row="0" FontFamily="segoe mdl2 assets" Content="&#xE26b;" Name="NextBtn" Click="NextBtn_Click" Margin="0,3"/>-->
+        </StackPanel>
+
+        <SplitView Grid.Row="1" DisplayMode="CompactOverlay" Name="mySplit" CompactPaneLength="35" OpenPaneLength="150">
+            <SplitView.Pane>
+                <StackPanel Orientation="Horizontal">
+
+
+                    <ListBox SelectionChanged="ListBox_SelectionChanged">
+                        <ListBoxItem Margin="0,10" >
+                            <StackPanel Orientation="Horizontal">
+
+                                <TextBlock Text="&#xe10f;"  FontFamily="segoe mdl2 assets" />
+                                <TextBlock Text="   Home" />
+
+
+
+                            </StackPanel>
+                        </ListBoxItem>
+
+                        <ListBoxItem Margin="0,10" >
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text=" " FontFamily="segoe mdl2 assets" />
+                                <TextBlock Text="  Camera" />
+                            </StackPanel>
+                        </ListBoxItem>
+
+                        <ListBoxItem Margin="0,10" >
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text=""  FontFamily="segoe UI Symbol  assets" />
+                                <TextBlock Text="   Edit" />
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem Margin="0,10" >
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="❌"  FontFamily="segoe UI Symbol assets" />
+                                <TextBlock Text="  Close" />
+                            </StackPanel>
+                        </ListBoxItem>
+                    </ListBox>
+
+                </StackPanel>
+
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Frame Name="MainAppFrame" />
+            </SplitView.Content>
+        </SplitView>
+
     </Grid>
 </Page>

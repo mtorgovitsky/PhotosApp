@@ -9,9 +9,9 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace PhotosApp
 {
-    public class FhotoModel
+    public class photoModel
     {
-        public FhotoModel()
+        public photoModel()
         {
 
         }
