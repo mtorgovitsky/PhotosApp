@@ -25,9 +25,7 @@ namespace PhotosApp
         public MainPage()
         {
             this.InitializeComponent();
-            DataContext = new FhotoViewModel()
-            { Model = new FotoModel() {   } };
-           
+            DataContext = new FhotoViewModel();
         }
 
     }
